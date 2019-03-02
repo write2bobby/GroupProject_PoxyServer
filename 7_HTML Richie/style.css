@@ -1,0 +1,99 @@
+.bg-menu-color{
+	background:#ff0000;
+}
+.theTitle{
+    font-size: 26px;
+    font-weight: 700;
+}
+.theTitle a{
+	color: white;
+	text-shadow:1px 1px 1px rgba(0,0,0,.5);
+}
+.theTitle a:hover{
+	color:white;
+	text-shadow:2px 2px 2px rgba(0,0,0,.5);
+	text-decoration:none;
+}
+.navbar-nav a.nav-link {
+	color: white !important;
+	text-shadow:1px 1px 1px rgba(0,0,0,.5) !important;
+}
+#myTab{
+	margin-bottom:20px;
+}
+.nav-tabs a.nav-link{
+	color:#ff0000 !important;
+	text-shadow:1px 1px 1px rgba(0,0,0,.5) !important;
+}
+
+.dropdown-menu.show{
+	background-color: #ff0000 !important;
+	border:0px !important;
+}
+.dropdown-item:hover{
+	background-color: transparent !important;
+	color: rgba(0,0,0,.5) !important;
+}
+
+nav button:focus{
+	outline: 5px auto white !important;
+}
+nav {
+	margin-bottom:15px;
+}
+.navbar{
+	position: fixed;
+	width: 100%;
+}
+.footer{
+	background:red;
+	text-align: center;
+	/*position: fixed;
+	bottom:0px;
+	width: 100%;*/
+}
+.footer p{
+	color:white;
+	text-shadow:1px 1px 1px rgba(0,0,0,.5) !important;
+	padding:15px 0px;
+	margin-bottom:0px;
+	margin-top: 30px;
+}
+.pageTitle{
+	margin-bottom: 20px;
+	border-bottom:solid 1px red;
+}
+.pageTitle h2{
+	color: red;
+	text-shadow:1px 1px 1px rgba(0,0,0,.5) !important;
+}
+.homeContent{
+	margin-top:50px;
+}
+@media(max-width: 500px){
+	.home{
+	margin-top:15px;
+}
+}
+.imgWrap{
+	margin-bottom: 15px;
+}
+.potentialTables table, .potentialTables td, .potentialTables tr {
+	border:solid 1px;
+}
+table{
+	margin-bottom:15px;
+}
+.quote{
+	text-align: center;
+}
+small{
+	color:red;
+	text-shadow:1px 1px 1px rgba(0,0,0,.5) !important;
+}
+.appendixB table, .appendixB tr, .appendixB td{
+	border:solid 1px;
+}
+.appendixB{
+	margin-top: 30px;
+}
