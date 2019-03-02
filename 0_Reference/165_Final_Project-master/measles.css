@@ -1,0 +1,134 @@
+body {
+    margin: 10;
+    align-content: left;
+    /* text-align: center;
+      overflow: hidden; */
+    font-family: monospace;
+}
+
+svg {
+    font: 10px sans-serif;
+    padding-bottom: 10px;
+}
+
+.caption {
+    color: blue;
+    font-size: 10px;
+    font-weight: normal;
+    font-family: monospace;
+}
+
+.key path {
+    display: none;
+}
+
+.key line {
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+h1 {
+    text-align: left;
+    padding-left: 120px;
+    padding-bottom: 0px;
+    font-size: 45px;
+    font-family: monospace;
+    color: #0B0B3B;
+}
+
+h2 {
+    color: darkgray;
+    font-family: monospace;
+    padding-left: 220px;
+    font-size: 15px;
+}
+
+h4 {
+    font-family: monospace;
+}
+
+.axis {
+    font: 10px sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.axis .domain {
+    fill: none;
+    stroke: #000;
+    stroke-opacity: .3;
+    stroke-width: 10px;
+    stroke-linecap: round;
+}
+
+.axis .halo {
+    fill: none;
+    stroke: #ddd;
+    stroke-width: 8px;
+    stroke-linecap: round;
+}
+
+.slider .handle {
+    fill: #fff;
+    stroke: #000;
+    stroke-opacity: .5;
+    stroke-width: 1.25px;
+    cursor: crosshair;
+}
+
+.dot {
+  opacity: .4;
+}
+
+#tooltip {
+    position: absolute;
+    width: 200px;
+    height: auto;
+    padding: 10px;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+}
+
+#tooltip.hidden {
+    display: none;
+}
+
+#tooltip p {
+    margin: 0;
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+text {
+    stroke: black;
+    stroke-width: 0.5px;
+    fill: #000000;
+    font-size: .7em;
+    font-family:sans-serif;
+}
+
+.label {
+    fill: "black";
+}
+
+//Add Tooltip Style here 
+rect:hover {
+    fill: orange;
+}
+
+ #slider {
+    padding-bottom: 5px;
+    width: 550px;
+}
+
+div{
+    padding-left: 150px;
+}
