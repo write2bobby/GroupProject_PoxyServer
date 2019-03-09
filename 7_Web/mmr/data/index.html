@@ -1,0 +1,82 @@
+<!-- UofT SCS Data Analytics Boot Camp
+     Project 3 - Poxy_Server
+     Team Members:  Bobby Bhattacharjee, Laurel Lobo, Gobind Singh, Jose Tomines, Callan Yan
+     Author:        Jose Tomines
+     Purpose:       This page is a visualization of MMR rates and measles outbreaks in the US
+     Notes:         This file is the "placeholder" of the Measles View during development of the html framework.
+                    Once the framework is ready, the code will be inserted into the framework, and this file will become a .txt file for reference only.
+     Source:        https://github.com/artiichoke/165_Final_Project - Leveraged code of map but using larger data set 1995-2017
+ -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="measles.css">
+        <!-- <link rel="stylesheet" type="text/css" href="stylesheets/d3.slider.css" media="screen"/> -->
+
+        <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+        <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+        <!-- <script src="measles.js"></script>
+        <script src="javascripts/d3.slider.js"></script> -->
+
+        <title>D3: Setting path fills dynamically to generate a choropleth</title>
+    </head>
+    
+    <body>
+        
+        <div id="tooltip" class="hidden">        
+        <p><span id="value">100</span></p></div>
+
+        
+        <!--<div id="slider"></div> -->
+        <h1>Project Poxy_Server</h1>
+        <h2>a visualization of MMR rates and measles outbreaks in the US</h2>
+        <!--new slider stuff; binded to year incrementation-->
+        <script src="measles_mv.js"></script>
+        <script src="key_mv.js"></script>
+        <div id="control">
+            <label>Data shown for </label><label id="year" name="year">1995</label>:
+            <form>
+                <input id="slider" type="range" name="slider" min="0" max="23" value="0" step="1"/>
+            </form>
+        </div>
+        <script src="slider_mv.js"></script>
+        
+    
+        <br>
+        <hr>
+        <h3>Project 3 - Poxy_Server </h4>
+        <h4>Team Members: Bobby Bhattacharjee/n, Laurel Lobo, Gobind Singh, Jose Tomines, Callan Yan </h4>
+        <h4>UofT SCS Data Analytics Boot Camp // Winter 2019 // Instructor Piro Dhimitri</h4>
+
+        <h4>Files Used For Measles Visualization:</h4>
+        <ul>
+            <li>README.md</li>
+            <li>key_mv.js</li>
+            <li>index.html (this file) - used during code/db development</li>
+            <li>measles_mv.js</li>
+            <li>slider_mv.js</li>
+            <li>measles.css</li>
+            <li>us-cities.csv - used during code/db development</li>
+            <li>us-states.json - used during code/db development</li>
+            <li>measles_outbreaks_[1995-2017].csv - used during code/db development</li>
+            <li>data[1995-2017].csv - used during code/db development</li>
+        </ul>
+        
+        <h4>Javascript Code Referenced from:</h4>
+        <ul>
+            <li><a href="http://bl.ocks.org/mbostock/4573883">Map Key</a></li>
+            <li><a href="http://bl.ocks.org/mbostock/6452972">Slider Source</a> </li>
+            <li><a href="http://bl.ocks.org/mbostock/4060606">Map Source</a> </li>
+        </ul>
+        
+        <h4>Data Sources:</h4>
+        <ul>
+            <li><a href="http://www.cfr.org/interactives/GH_Vaccine_Map/#map">Measles Outbreak Data from the Council on Foreign Relations</a></li>
+            <li><a href="http://www.latimes.com/visuals/graphics/la-na-g-measles-outbreak-us-20150122-htmlstory.html">Measles Outbreak Data from LA Times</a></li>
+            <li><a href="http://www.cdc.gov/vaccines/imz-managers/coverage/imz-coverage.html">Vaccination Data from the Center for Disease Control</a></li>
+        </ul>
+    </body>
+</html>

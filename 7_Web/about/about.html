@@ -1,0 +1,104 @@
+<!-- UofT SCS Data Analytics Boot Camp
+	Project 3 - Poxy_Server
+	Team Members:     	Bobby Bhattacharjee, Laurel Lobo, Gobind "Ritchie" Singh, Jose Tomines, Callan Yan
+	Author:				Jose Tomines
+	Purpose:          	This page is landing page for the project website that provides visualization to infectious diseases
+	Web/HTML Source:	This framework leverages the project website code for ETL Project - The Canadian Landscape For Data Science Careers, 
+		                produced by The Six in the 6 project team.  https://jessewgray.github.io/6in6Site/html/index.html
+    Data Source:      	https://github.com/artiichoke/165_Final_Project - Leveraged code of map but using larger data set 1995-2017
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Project Poxy_Server</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<script
+ 		src="https://code.jquery.com/jquery-3.3.1.min.js"
+  		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  		crossorigin="anonymous"></script>
+  	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+  	<script src="../script/script.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-menu-color" style="text-align: center;">
+	    <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+	    <div class="theTitle"><a href="../index.html">Project Poxy_Server:  The Visualization of Infectious Diseases</a></div>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+	        <ul class="navbar-nav">
+	        	<li class="nav-item">
+					<a class="nav-link" href="../index.html">Home</a>
+				</li>
+				<li class="nav-item">
+	           		<a class="nav-link" href="../view1/view1.html">View1</a>
+	           	</li>
+	           	<li class="nav-item">
+	           		<a class="nav-link" href="../mmr/mmr.html">MMR Vaccinations</a>
+	           	</li>
+	           	<li class="nav-item">
+	           		<a class="nav-link" href="../view3/view3.html">View3</a>
+	           	</li>
+             	<li class="nav-item">
+	            	<a class="nav-link" href="../about/about.html">About</a>
+	           	</li>   
+	        </ul>
+	    </div>
+	</nav>
+
+
+	<div class="container">
+		<div class="pageTitle">
+			<h2>About</h2>
+		</div>
+		<div class="imgWrap">
+			<img src="../images/about.jpg" alt="about project poxy_server" style="max-width:50%">
+			
+		</div>
+
+		<h3>Project 3 - Poxy_Server </h4>
+		<h4>Team Members: Bobby Bhattacharjee/n, Laurel Lobo, Gobind Singh, Jose Tomines, Callan Yan </h4>
+		<h4>UofT SCS Data Analytics Boot Camp // Winter 2019 // Instructor Piro Dhimitri</h4>
+
+		<h4>Files Used For Measles Visualization:</h4>
+		<ul>
+			<li>README.md</li>
+			<li>key_mv.js</li>
+			<li>index.html (this file) - used during code/db development</li>
+			<li>measles_mv.js</li>
+			<li>slider_mv.js</li>
+			<li>measles.css</li>
+			<li>us-cities.csv - used during code/db development</li>
+			<li>us-states.json - used during code/db development</li>
+			<li>measles_outbreaks_[1995-2017].csv - used during code/db development</li>
+			<li>data[1995-2017].csv - used during code/db development</li>
+		</ul>
+			
+		<h4>Javascript Code Referenced from:</h4>
+		<ul>
+			<li><a href="http://bl.ocks.org/mbostock/4573883">Map Key</a></li>
+			<li><a href="http://bl.ocks.org/mbostock/6452972">Slider Source</a> </li>
+			<li><a href="http://bl.ocks.org/mbostock/4060606">Map Source</a> </li>
+		</ul>
+		
+		<h4>Data Sources:</h4>
+		<ul>
+			<li><a href="http://www.cfr.org/interactives/GH_Vaccine_Map/#map">Measles Outbreak Data from the Council on Foreign Relations</a></li>
+			<li><a href="http://www.latimes.com/visuals/graphics/la-na-g-measles-outbreak-us-20150122-htmlstory.html">Measles Outbreak Data from LA Times</a></li>
+			<li><a href="http://www.cdc.gov/vaccines/imz-managers/coverage/imz-coverage.html">Vaccination Data from the Center for Disease Control</a></li>
+			</ul>
+
+
+	</div>
+
+
+	<div class="footer">
+		<p>The Visualization of Infectious Diseases by Bobby, Laurel, Ritchie, Jose, and Callan</p>
+	</div>
+
+</body>
+</html>
