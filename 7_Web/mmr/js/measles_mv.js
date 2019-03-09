@@ -59,7 +59,7 @@ var svg = d3.select("body")
 //Some of the code to bind outbreak and vaccination data to the slider was inspired by this d3 visualization: http://bl.ocks.org/carsonfarmer/11478345
 //Load in vaccination rates data
 function display(Year) {    
-    d3.csv("mmr/data/data" + Year + ".csv", function (data) {
+    d3.csv("./data/data" + Year + ".csv", function (data) {
     data.forEach(function(d) {
                d.MMR_rates = 100 - (+d.MMR_rates);                                    
             });
@@ -76,7 +76,7 @@ function display(Year) {
 
     //Code copied from Mike Bostock's Chater 12 choropleth.js
     //Load in GeoJSON data
-    d3.json("mmr/data/us-states.json", function (json) {
+    d3.json("./data/us-states.json", function (json) {
         //Merge the ag. data and GeoJSON
         //Loop through once for each ag. data value
         for (var i = 0; i < data.length; i++) {
@@ -138,7 +138,7 @@ function display(Year) {
                });            
                 
         //Load in cities data
-        d3.csv("mmr/data/measles_outbreaks_" + Year + ".csv", function(data) {
+        d3.csv("./data/measles_outbreaks_" + Year + ".csv", function(data) {
             console.log(Year);
               data.forEach(function(d) {
                d.state = d.state.toString();

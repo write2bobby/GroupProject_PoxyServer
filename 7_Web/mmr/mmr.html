@@ -1,11 +1,11 @@
 <!-- UofT SCS Data Analytics Boot Camp
-     Project 3 - Poxy_Server
-     Team Members:     Bobby Bhattacharjee, Laurel Lobo, Gobind Singh, Jose Tomines, Callan Yan
-     Author:           Jose Tomines
-     Purpose:          This page is a visualization of MMR rates and measles/mumps/rubella outbreaks in the US
-	 Web/HTML Source:  This framework leverages the project website code for ETL Project - The Canadian Landscape For Data Science Careers, 
-		               produced by The Six in the 6 project team.  https://jessewgray.github.io/6in6Site/html/index.html
-     Data Source:      https://github.com/artiichoke/165_Final_Project - Leveraged code of map but using larger data set 1995-2017
+	Project 3 - Poxy_Server
+    Team Members:     	Bobby Bhattacharjee, Laurel Lobo, Gobind "Ritchie" Singh, Jose Tomines, Callan Yan
+    Author:           	Jose Tomines
+    Purpose:          	This page is a visualization of MMR rates and measles/mumps/rubella outbreaks in the US
+	Web/HTML Source:  	This framework leverages the project website code for ETL Project - The Canadian Landscape For Data Science Careers, 
+						produced by The Six in the 6 project team.  https://jessewgray.github.io/6in6Site/html/index.html
+    Data Source:      	https://github.com/artiichoke/165_Final_Project - Leveraged code of map but using larger data set 1995-2017
  -->
 
 <!DOCTYPE html>
@@ -14,6 +14,7 @@
 	<meta charset="UTF-8">
 	<title>Project Poxy_Server</title>
 	<link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" type="text/css" href="./css/measles.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<script
 		src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -35,7 +36,7 @@
 	    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
 	        <ul class="navbar-nav">
 	        	<li class="nav-item">
-					<a class="nav-link" href="../../index.html">Home</a>
+					<a class="nav-link" href="../index.html">Home</a>
 				</li>
 				<li class="nav-item">
 	           		<a class="nav-link" href="../view1/view1.html">View1</a>
@@ -63,22 +64,25 @@
 	
 			
 			<!--<div id="slider"></div> -->
+		<div>
 			<script src="./js/measles_mv.js"></script>
-			<script src="./js/key_mv.js"></script>
-			<div id="control">
-				<label>Data shown for </label><label id="year" name="year">1995</label>:
-				<form>
-					<input id="slider" type="range" name="slider" min="0" max="23" value="0" step="1"/>
-				</form>
-			</div>
-			<script src="./js/slider_mv.js"></script>
-			<div>
-			<h4>Findings</h4>
-			<p>blah blah blah</p>  
-			<p>bhla blah blah</p>
 		</div>
+
+		<script src="./js/key_mv.js"></script>
+		<div id="control">
+			<label>Data shown for year </label><label id="year" name="year">1995</label>:
+			<form>
+				<input id="slider" type="range" name="slider" min="0" max="23" value="0" step="1"/>
+			</form>
+			</div>
+		<script src="./js/slider_mv.js"></script>
 	</div>
 
+	<div>
+		<h4>Findings</h4>
+		<p>blah blah blah</p>  
+		<p>bhla blah blah</p>
+	</div>
 
 	<div class="footer">
 		<p>The Visualization of Infectious Diseases by Bobby, Laurel, Ritchie, Jose, and Callan</p>
