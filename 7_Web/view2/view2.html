@@ -39,13 +39,13 @@
 					<a class="nav-link" href="../index.html">Home</a>
 				</li>
 				<li class="nav-item">
-	           		<a class="nav-link" href="../view1/view1.html">View1</a>
+	           		<a class="nav-link" href="../view1/view1.html">MMR Summary</a>
 	        	</li>
 	        	<li class="nav-item">
-	           		<a class="nav-link" href="../mmr/mmr.html">MMR Vaccinations</a>
+	           		<a class="nav-link" href="../view2/view2.html">MMR Vax</a>
 	        	</li>
 	        	<li class="nav-item">
-	           		<a class="nav-link" href="../view3/view3.html">View3</a>
+	           		<a class="nav-link" href="../view3/view3.html">Diseases Correlation</a>
 	        	</li>
              	<li class="nav-item">
 	            	<a class="nav-link" href="../about/about.html">About</a>
@@ -54,34 +54,53 @@
 	    </div>
 	</nav>
 
-
+s
 	<div class="container">
 		<div class="pageTitle">
 			<h2>Measles - Mumps - Rubella Vaccinations</h2>
 		</div>
         <div id="tooltip" class="hidden">        
-			<p><span id="value">100</span></p></div>
-	
-			
-			<!--<div id="slider"></div> -->
+			<p><span id="value">100</span></p>
+		</div>
+		
+		<div class="disease_dd">
+			<strong>Disease:&nbsp;&nbsp;</strong>
+			<select name="deseaseType">
+				<option value="MEASLES">Measles</option>
+				<option value="MUMPS">Mumps</option>
+				<option value="RUBELLA">Rubella</option>
+			</select>
+			<br>
+		</div>
+
+		<br>
+
+		<div id="control">
+			<label><strong>Data shown for year&nbsp;</label><label id="year" name="year">1995</strong></label>
+			<form>
+				<input id="slider" type="range" name="slider" min="0" max="16" value="0" step="1"/>
+			</form>
+		</div>
+
+		<!--<div id="slider"></div> -->
 		<div>
 			<script src="./js/measles_mv.js"></script>
 		</div>
 
 		<script src="./js/key_mv.js"></script>
-		<div id="control">
-			<label>Data shown for year </label><label id="year" name="year">1995</label>:
-			<form>
-				<input id="slider" type="range" name="slider" min="0" max="23" value="0" step="1"/>
-			</form>
-			</div>
+		
+		
 		<script src="./js/slider_mv.js"></script>
 	</div>
 
-	<div>
-		<h4>Findings</h4>
-		<p>blah blah blah</p>  
-		<p>bhla blah blah</p>
+	<div class="commentary">
+		<br>
+		<h4>Effectiveness of Vaccination</h4>
+		<br>
+		<p>The above map of the United States is the visualization of the % vaccination rate for the Measles-Mumps_Rubella vaccine with number of outbreak cases.  The drop down list selects the disease and the slider selects the year of the data to be displayed.  All data is aggregated per state.</p>  
+		<p>Vaccination rate is represented as the blue shading for the state.  The darker the shading, the higher the vaccination rate.</p>
+		<p>Number of outbreak cases are represented as the red bubbles in the geographic center of the state.  The larger the bubble, the higher the number of cases.</p>
+		<p>See how vaccinations play a role in minimizing or preventing outbreaks.</p>
 	</div>
 
 	<div class="footer">

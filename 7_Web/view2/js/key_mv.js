@@ -52,7 +52,7 @@ var svg2 = d3.select("body").append("svg")
 //positioning affects the key
 var g = svg2.append("g")
     .attr("class", "key")
-    .attr("transform", "translate(" + (width - 240) / 2 + "," + height / 2 + ")");
+    .attr("transform", "translate(" + (width) / 2 + "," + height / 2 + ")");
 
 g.selectAll("rect")
     .data(threshold.range().map(function (color) {

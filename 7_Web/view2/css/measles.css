@@ -50,7 +50,7 @@ svg {
     fill: #fff;
     stroke: #000;
     stroke-opacity: .5;
-    stroke-width: 1.25px;
+    stroke-width: 1.5px;
     cursor: crosshair;
 }
 
@@ -106,6 +106,8 @@ rect:hover {
     width: 550px;
 }
 
-div{
-    padding-left: 150px;
+.commentary {
+        margin:  auto;
+        width:  900px;
+        word-wrap: break-word;
 }
