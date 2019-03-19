@@ -1,4 +1,4 @@
-/* measles_mv.js
+/* maps_vax.js
 UofT SCS Data Analytics Boot Camp
 Project 3 - Poxy_Server
 Team Members:  Bobby Bhattacharjee, Laurel Lobo, Gobind Singh, Jose Tomines, Callan Yan
@@ -19,7 +19,6 @@ Source:        https://github.com/artiichoke/165_Final_Project - Leveraged code 
 //Width and height
 var w = 1000;
 var h = 550;
-
 //Define map projection
 var projection = d3.geo.albersUsa()
     .translate([w / 2, h / 2])
@@ -29,26 +28,26 @@ var projection = d3.geo.albersUsa()
 var path = d3.geo.path()
     .projection(projection);
 
+//var step = 0;
+//var current_year = 2008;
+//var filename = ("data" + current_year + ".csv").toString();
 
 //Colors taken from colorbrewer.js, included in the D3 download
 //Define quantize scale to sort data values into buckets of color
-
 var color = d3.scale.quantize()
 .range([
-    'rgb(8, 48, 107)',
-    'rgb(10, 74, 144)',
-    'rgb(24, 100, 170)',
-    'rgb(47, 126, 188)',
-    'rgb(75, 151, 201)',
-    'rgb(109, 174, 213)',
-    'rgb(147, 195, 223)',
-    'rgb(181, 212, 233)',
-    'rgb(207, 225, 242)',
-    'rgb(227, 238, 249)',
-    'rgb(247, 251, 255)'
-   ]);
-
-
+        'rgb(155, 178, 184)',
+        'rgb(123, 146, 152)',
+        'rgb(78, 112, 128)',
+        'rgb(73, 99, 125)',
+        'rgb(68, 86, 123)',
+        'rgb(64, 73, 121)',
+        'rgb(59, 60, 119)',
+        'rgb(54, 48, 117)',
+        'rgb(50, 35, 115)',
+        'rgb(30, 15, 85)',
+        'rgb(11, 5, 31)'
+       ]);
 
 //Create SVG element
 var svg = d3.select("body")
@@ -56,22 +55,48 @@ var svg = d3.select("body")
     .attr("width", w)
     .attr("height", h);
 
+/* display(current_year);
+
+d3.select("#slider").on('change', function(d) {       
+       var incrementation = parseInt(this.value);
+       current_year = (2008 + incrementation);
+       d3.select("#year").text(""+current_year);
+       svg.selectAll("path").remove();
+       svg.selectAll(".dot").remove();
+       return display(current_year);
+});
+*/
 //Some of the code to bind outbreak and vaccination data to the slider was inspired by this d3 visualization: http://bl.ocks.org/carsonfarmer/11478345
 //Load in vaccination rates data
 function display(Year) {    
     d3.csv("./data/data" + Year + ".csv", function (data) {
-    data.forEach(function(d) {
-               d.MMR_rates = 100 - (+d.MMR_rates);                                    
-            });
-    
-    //Set input domain for color scale
-    color.domain([
-            d3.min(data, function (d) {
-            return (d.MMR_rates);
-        }),
-            d3.max(data, function (d) {
+        data.forEach(function(d) {
+            d.MMR_rates = 100 - (+d.MMR_rates);
+        });
+
+
+        var minRate = d3.min(data, function (d) {
             return (d.MMR_rates);
         })
+
+
+        var maxRate = d3.max(data, function (d) {
+            return (d.MMR_rates);
+        })
+
+        console.log(minRate);
+        console.log(maxRate);
+
+
+        
+        //Set input domain for color scale
+        color.domain([
+                d3.min(data, function (d) {
+                    return (d.MMR_rates);
+                }),
+                d3.max(data, function (d) {
+                    return (d.MMR_rates);
+                })
         ]);
 
     //Code copied from Mike Bostock's Chater 12 choropleth.js
@@ -116,10 +141,9 @@ function display(Year) {
                     //If value is undefined…
                     return "#ccc";
                 }
-        })
+            })
             //code modified from Mike Bostock's Chaper 12 example scripts
             .on("mouseover", function(d) {
-            
                 var mmr_average = 100 - Math.round((d.properties.value) * 100) / 100;
                 var state = d.properties.name;
                     //Update the tooltip position and value
@@ -131,31 +155,37 @@ function display(Year) {
 
                     //Show the tooltip
                     d3.select("#tooltip").classed("hidden", false);
-               })
-               .on("mouseout", function() {
-                    //Hide the tooltip
-                    d3.select("#tooltip").classed("hidden", true);
-               });            
+            })
+            .on("mouseout", function() {
+                //Hide the tooltip
+                d3.select("#tooltip").classed("hidden", true);
+            });            
                 
         //Load in cities data
         d3.csv("./data/measles_outbreaks_" + Year + ".csv", function(data) {
             console.log(Year);
-              data.forEach(function(d) {
+            console.log(data);
+            data.forEach(function(d) {
+               d.city = d.city.toString();
                d.state = d.state.toString();
                d.lat = +d.lat;
                d.lon = +d.lon;
                d.year = +d.year;
+               d.month = d.month.toString();
                d.cases = +d.cases;
-               //state,lat,lon,year
+               d.reason = d.reason.toString();
+               d.citation = d.citation.toString();                  
+                  //city,state,lat,lon,year,month,cases,reason,citation
             });
             
+            console.log(data);
             svg.selectAll(".dot")
                .data(data)
                .enter()
                .append("circle")
                .attr("class", "dot")
                .attr("cx", function(d) {
-                   console.log(d.state, d.lat, d.lon, d.year, d.cases);
+                   console.log(d.city, d.state, d.lat, d.lon, d.year, d.month, d.cases, d.reason, d.citation);
                    return projection([d.lon, d.lat])[0];
                    // return projection(+d.lon);
                })
@@ -167,19 +197,19 @@ function display(Year) {
                     return Math.sqrt(parseInt(Math.log(d.cases+1)*50));
                })
                .style("fill", "red")
-            
-            // Code modified from Mike Bostock's Chapter 12 example scripts
-              .on("mouseover", function(d) {
+               // Code modified from Mike Bostock's Chapter 12 example scripts
+                .on("mouseover", function(d) {
                     // Update the tooltip position and value
                     d3.select("#tooltip")
                         .style("left", d3.event.pageX + "px")
                         .style("top", d3.event.pageY + "px")						
                         .select("#value")
-                        .html('<b>State:</b> ' + d.state + '<br/><b>Cases reported:</b> ' + d.cases);
+                        .html('<b>City:</b> ' + d.city + '<br/><b>State:</b> ' + d.state + '<br/><b>Cases reported:</b> ' + d.cases + 
+                              '<br/><b>Cause of outbreak:</b> ' + d.reason);
 
                     //Show the tooltip
                     d3.select("#tooltip").classed("hidden", false);
-               })
+                })
                .on("mouseout", function() {
                     //Hide the tooltip
                     d3.select("#tooltip").classed("hidden", true);

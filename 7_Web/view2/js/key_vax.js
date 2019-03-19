@@ -8,7 +8,7 @@ Source:        https://github.com/artiichoke/165_Final_Project - Leveraged code 
 */
 
 var width = 1100,
-    height = 30,
+    height = 70,
     formatPercent = d3.format(".0%"),
     formatNumber = d3.format(".0f");
 

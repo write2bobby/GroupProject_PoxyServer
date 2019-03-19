@@ -54,7 +54,7 @@
 	    </div>
 	</nav>
 
-s
+
 	<div class="container">
 		<div class="pageTitle">
 			<h2>Measles - Mumps - Rubella Vaccinations</h2>
@@ -62,10 +62,14 @@ s
         <div id="tooltip" class="hidden">        
 			<p><span id="value">100</span></p>
 		</div>
-		
+
+		<div>
+			<p>The following map of the United States is the visualization of the % vaccination rate for the Measles-Mumps_Rubella vaccine with number of outbreak cases.  The drop down list selects the disease and the slider selects the year of the data to be displayed.  All data is aggregated per state.</p>  
+		</div>
+
 		<div class="disease_dd">
 			<strong>Disease:&nbsp;&nbsp;</strong>
-			<select name="deseaseType">
+			<select name="diseaseType">
 				<option value="MEASLES">Measles</option>
 				<option value="MUMPS">Mumps</option>
 				<option value="RUBELLA">Rubella</option>
@@ -84,25 +88,21 @@ s
 
 		<!--<div id="slider"></div> -->
 		<div>
-			<script src="./js/measles_mv.js"></script>
+			<script src="./js/map_vax.js"></script>
 		</div>
 
-		<script src="./js/key_mv.js"></script>
+		<script src="./js/key_vax.js"></script>
 		
 		
-		<script src="./js/slider_mv.js"></script>
+		<script src="./js/slider_vax.js"></script>
 	</div>
 
-	<div class="commentary">
-		<br>
-		<h4>Effectiveness of Vaccination</h4>
-		<br>
-		<p>The above map of the United States is the visualization of the % vaccination rate for the Measles-Mumps_Rubella vaccine with number of outbreak cases.  The drop down list selects the disease and the slider selects the year of the data to be displayed.  All data is aggregated per state.</p>  
+	<div class="container">
 		<p>Vaccination rate is represented as the blue shading for the state.  The darker the shading, the higher the vaccination rate.</p>
 		<p>Number of outbreak cases are represented as the red bubbles in the geographic center of the state.  The larger the bubble, the higher the number of cases.</p>
-		<p>See how vaccinations play a role in minimizing or preventing outbreaks.</p>
+		<p>See how vaccinations play a role in minimizing or preventing outbreaks.
 	</div>
-
+	
 	<div class="footer">
 		<p>The Visualization of Infectious Diseases by Bobby, Laurel, Ritchie, Jose, and Callan</p>
 	</div>

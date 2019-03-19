@@ -16,6 +16,7 @@ Source:        https://github.com/artiichoke/165_Final_Project - Leveraged code 
 
 // CREATE MAP
 
+
 //Width and height
 var w = 1200;
 var h = 600;
@@ -48,8 +49,6 @@ var color = d3.scale.quantize()
     'rgb(247, 251, 255)'
    ]);
 
-
-
 //Create SVG element
 var svg = d3.select("body")
     .append("svg")
@@ -58,32 +57,59 @@ var svg = d3.select("body")
 
 //Some of the code to bind outbreak and vaccination data to the slider was inspired by this d3 visualization: http://bl.ocks.org/carsonfarmer/11478345
 //Load in vaccination rates data
-function display(Year) {    
-    d3.csv("./data/data" + Year + ".csv", function (data) {
-    data.forEach(function(d) {
-               d.MMR_rates = 100 - (+d.MMR_rates);                                    
-            });
+function display(Year) {
     
-    //Set input domain for color scale
-    color.domain([
-            d3.min(data, function (d) {
-            return (d.MMR_rates);
-        }),
-            d3.max(data, function (d) {
-            return (d.MMR_rates);
-        })
+    var vax = [];
+    var outbreaks = [];
+
+    // get all vaccination data, then copy data of the correct year to vax array
+    d3.json("./data/ALLvax.json", function(vaxAll) {
+        vaxAll.forEach(function(d) {
+            d.MMR_rates = 100 - d.MMR_rate;
+            if (d.Year == Year) {
+                vax.push(d);
+            }
+            // console.log(d);
+        });
+
+        color.domain([
+            d3.min(vaxAll, function (d) {
+                return (d.MMR_rates);
+            }),
+            d3.max(vaxAll, function (d) {
+                return (d.MMR_rates);
+            })
         ]);
+
+    });
+    
+    // get all outbreaks data, then copy data of the correct year to outbreaks array
+    d3.json("./data/ALLoutbreaks.json", function(outbreaksAll) {
+        //console.log(outbreaksAll);
+        outbreaksAll.forEach(function(d) {
+            if (d.year == Year) {
+                outbreaks.push(d);
+            }
+            //console.log(d);
+        });
+        //console.log(outbreaksYear);
+    });
+
+    // console.log(vax);
+    // console.log(outbreaks);
+    console.log(Year);
+
 
     //Code copied from Mike Bostock's Chater 12 choropleth.js
     //Load in GeoJSON data
     d3.json("./data/us-states.json", function (json) {
         //Merge the ag. data and GeoJSON
         //Loop through once for each ag. data value
-        for (var i = 0; i < data.length; i++) {
+        for (var i = 0; i < vax.length; i++) {
             //Grab state name
-            var dataState = data[i].State;
+            var dataState = vax[i].State;
             //Grab data value, and convert from string to float
-            var dataValue = parseFloat(data[i].MMR_rates);
+            var dataValue = parseFloat(vax[i].MMR_rates);
 
             //Find the corresponding state inside the GeoJSON
             for (var j = 0; j < json.features.length; j++) {
@@ -116,77 +142,72 @@ function display(Year) {
                     //If value is undefined…
                     return "#ccc";
                 }
-        })
+            })
             //code modified from Mike Bostock's Chaper 12 example scripts
             .on("mouseover", function(d) {
-            
                 var mmr_average = 100 - Math.round((d.properties.value) * 100) / 100;
                 var state = d.properties.name;
-                    //Update the tooltip position and value
-                    d3.select("#tooltip")
-                        .style("left", d3.event.pageX + "px")
-                        .style("top", d3.event.pageY + "px")						
-                        .select("#value")
-                        .html('<b>State:</b> ' + state + '<br/><b>Vaccination average:</b> ' + mmr_average + '%');
+                //Update the tooltip position and value
+                d3.select("#tooltip")
+                    .style("left", d3.event.pageX + "px")
+                    .style("top", d3.event.pageY + "px")						
+                    .select("#value")
+                    .html('<b>State:</b> ' + state + '<br/><b>Vaccination Rate:</b> ' + mmr_average + '%');
 
-                    //Show the tooltip
-                    d3.select("#tooltip").classed("hidden", false);
-               })
-               .on("mouseout", function() {
-                    //Hide the tooltip
-                    d3.select("#tooltip").classed("hidden", true);
-               });            
-                
-        //Load in cities data
-        d3.csv("./data/measles_outbreaks_" + Year + ".csv", function(data) {
-            console.log(Year);
-              data.forEach(function(d) {
-               d.state = d.state.toString();
-               d.lat = +d.lat;
-               d.lon = +d.lon;
-               d.year = +d.year;
-               d.cases = +d.cases;
-               //state,lat,lon,year
+                //Show the tooltip
+                d3.select("#tooltip").classed("hidden", false);
+            })
+            .on("mouseout", function() {
+                //Hide the tooltip
+                d3.select("#tooltip").classed("hidden", true);
             });
-            
-            svg.selectAll(".dot")
-               .data(data)
-               .enter()
-               .append("circle")
-               .attr("class", "dot")
-               .attr("cx", function(d) {
-                   console.log(d.state, d.lat, d.lon, d.year, d.cases);
-                   return projection([d.lon, d.lat])[0];
-                   // return projection(+d.lon);
-               })
-               .attr("cy", function(d) {
-                   return projection([d.lon, d.lat])[1];
-                    // return projection(+d.lat);
-               })
-               .attr("r", function(d) {
-                    return Math.sqrt(parseInt(Math.log(d.cases+1)*50));
-               })
-               .style("fill", "red")
-            
-            // Code modified from Mike Bostock's Chapter 12 example scripts
-              .on("mouseover", function(d) {
-                    // Update the tooltip position and value
-                    d3.select("#tooltip")
-                        .style("left", d3.event.pageX + "px")
-                        .style("top", d3.event.pageY + "px")						
-                        .select("#value")
-                        .html('<b>State:</b> ' + d.state + '<br/><b>Cases reported:</b> ' + d.cases);
 
-                    //Show the tooltip
-                    d3.select("#tooltip").classed("hidden", false);
-               })
-               .on("mouseout", function() {
-                    //Hide the tooltip
-                    d3.select("#tooltip").classed("hidden", true);
-               });
+        // plot outbreaks data as dots on the map.
+        // outbreaks.forEach(function(d) {
+            // d.state = d.state.toString();
+            // d.lat = +d.lat;
+            // d.lon = +d.lon;
+            // d.year = +d.year;
+            // d.cases = +d.cases;
+            // console.log(d.state, d.lat, d.long, d.cases, d.year);
+        // });
 
-        });
-    });
+        svg.selectAll(".dot")
+            .data(outbreaks)
+            .enter()
+            .append("circle")
+            .attr("class", "dot")
+            .attr("cx", function(d) {
+                console.log(d.state, d.lat, d.lon, d.year, d.cases);
+                return projection([d.lon, d.lat])[0];
+            })
+            .attr("cy", function(d) {
+                return projection([d.lon, d.lat])[1];
+            })
+            .attr("r", function(d) {
+                return Math.sqrt(parseInt(Math.log(d.cases+1)*50));
+            })
+            .style("fill", "red")
+        
+        // Code modified from Mike Bostock's Chapter 12 example scripts
+            .on("mouseover", function(d) {
+                // Update the tooltip position and value
+                d3.select("#tooltip")
+                    .style("left", d3.event.pageX + "px")
+                    .style("top", d3.event.pageY + "px")						
+                    .select("#value")
+                    .html('<b>State:</b> ' + d.state + '<br/><b>Cases reported:</b> ' + d.cases);
 
-});
-}
+                //Show the tooltip
+                d3.select("#tooltip").classed("hidden", false);
+            })
+            .on("mouseout", function() {
+                //Hide the tooltip
+                d3.select("#tooltip").classed("hidden", true);
+            });
+        
+    });            
+};
+
+ 
+
