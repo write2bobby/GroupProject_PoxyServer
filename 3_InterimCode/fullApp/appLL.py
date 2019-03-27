@@ -1,6 +1,3 @@
-###################################################
-#Dependencies
-###################################################
 import os
 
 import pandas as pd
@@ -9,16 +6,13 @@ import numpy as np
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, func, inspect, distinct
 
 from flask import Flask, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-##################################################
-# Database config
-##################################################
 
 #################################################
 # Database Setup
@@ -30,7 +24,7 @@ engine = create_engine("postgres://gxxdlokrikmuew:56373f2fbd48e1486f270abfc7bb86
 Base = automap_base()
 
 # reflect the tables
-Base.prepare(db.engine, reflect=True)
+Base.prepare(engine, reflect=True)
 session = Session(engine)
 
 # Save references to each table
@@ -44,12 +38,15 @@ def index():
     """Return the homepage."""
     return render_template("index.html")
 
+##################################################################
+# Disease dropdown
+##################################################################
 
 @app.route("/names")
 def names():
     """Return a list of sample names."""
 
-    # Use Pandas to perform the sql query
+    # Use sqlalchemy to perform the sql query
     sel = [master.disease]
 
     results = session.query(*sel).distinct().all()
@@ -61,37 +58,116 @@ def names():
             continue
         else:
             menu_ls.append(r[0])
-            
-    menu_data = []
 
-    for x in menu_ls:
-        menu_row = {
-            'disease': x
-        }
-        menu_data.append(menu_row)
-
-    # Return a list of the column names (sample names)
+    # Return a list of the disease names
     
+    return jsonify(menu_ls)
+
+##################################################################
+# Bobby's data
+##################################################################
+@app.route("/barGraph")
+def diseases():
+    sel = [master.disease,
+           master.state_name,
+           master.incidence_per_capita]
+
+    results0 = session.query(*sel).\
+               group_by(master.disease, master.state_name, master.incidence_per_capita).\
+               order_by(master.disease.asc()).all()
+
+    finalData_0 = []
+
+    for r in results0:
+        row = {
+            'disease': r[0],
+            'state_name': r[1],
+            'incidence_per_capita': r[2]
+            }
+        finalData_0.append(row)
     
-    return jsonify(menu_data)
+    return jsonify(finalData_0)
 
+##################################################################
+# Jose's data
+##################################################################
 
-# Disease data retrieval
-@app.route("/diseases/<sample>")
-def samples(sample):
-    """Return `otu_ids`, `otu_labels`,and `sample_values`."""
-    stmt = db.session.query(MasterTable).statement
-    df = pd.read_sql_query(stmt, db.session.bind)
+@app.route("/mapping")
+def mapping():
+    sel = [vacc.state_name,
+           vacc.mmr_rate,
+           vacc.year]
 
-    # Filter the data based on the disease name
-    sample_data = df.loc[df[disease] == sample, ["state_name", "year", "incidence_per_capita", sample]]
-    # Format the data to send as json
-    data = {
-        "state_name": sample_data.state_name.values.tolist(),
-        "incidence_per_capita": sample_data[sample].values.tolist(),
-        "otu_labels": sample_data.otu_label.tolist(),
-    }
-    return jsonify(data)
+    results1 = session.query(*sel).\
+               group_by(vacc.state_name, vacc.mmr_rate, vacc.year).all()
+
+    finalData_1 = []
+
+    for r in results1:
+        row = {
+            'state': r[0],
+            'MMR_rate': r[1],
+            'year': r[2]
+            }
+        finalData_1.append(row)
+
+    ###print(finalData_1)
+    return jsonify(finalData_1)
+
+@app.route("/incidence/<disease>")
+def incidence(disease):
+    sel = [states.state_name,
+           states.latitude,
+           states.longitude,
+           master.year,
+           master.cases,
+           master.incidence_per_capita]
+
+    results2 = session.query(*sel).\
+               join(master, states.state_name == master.state_name).\
+               filter(master.disease == disease).all()
+
+    finalData_2 = []
+
+    for r in results2:
+        row = {
+            'state': r[0],
+            'latitude': r[1],
+            'longitude': r[2],
+            'year': r[3],
+            'case_count': r[4],
+            'incidence_per_capita': r[5]
+            }
+        finalData_2.append(row)
+        
+    ###print(finalData_2)
+    return jsonify(finalData_2)
+
+##################################################################
+# Callan and Laurel's data
+##################################################################
+@app.route("/d3")
+def d3():
+    sel = [master.disease,
+           master.year,
+           func.avg(master.incidence_per_capita)]
+
+    results3 = session.query(*sel).\
+               filter(master.year.between('1974', '2002')).\
+               group_by(master.disease, master.year).\
+               order_by(master.disease.asc(), master.year.asc()).all()
+
+    finalData_3 = []
+
+    for r in results3:
+        row = {'disease': r[0],
+               'year': r[1],
+               'incidence': r[2]
+            }
+        finalData_3.append(row)
+    
+    ###print(finalData_3)
+    return jsonify(finalData_3)
     
 if __name__ == "__main__":
     app.run()
